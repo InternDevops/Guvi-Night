@@ -36,7 +36,7 @@ import pymysql.cursors
 import redis
 from bson import ObjectId
 from dotenv import load_dotenv
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from pymongo import MongoClient
 
@@ -46,16 +46,27 @@ from pymongo import MongoClient
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {
-    "origins": [
-        "http://localhost:8080",
-        "http://127.0.0.1:8080",
-        "https://delicate-swan-b0f87c.netlify.app",
-        "*"  # remove this line in production
-    ],
-    "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    "allow_headers": ["Content-Type", "Authorization"]
-}})
+
+# Allow all origins — handles preflight OPTIONS automatically
+CORS(app, supports_credentials=True, resources={r"/api/*": {"origins": "*"}})
+
+# Extra safety — inject CORS headers on every response including errors
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"]  = "*"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    return response
+
+# Handle OPTIONS preflight for all routes
+@app.before_request
+def handle_options():
+    if request.method == "OPTIONS":
+        resp = make_response()
+        resp.headers["Access-Control-Allow-Origin"]  = "*"
+        resp.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        resp.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+        return resp, 200
 
 JWT_SECRET    = os.getenv("JWT_SECRET", "change_me_supersecret_key_123")
 JWT_ALGO      = "HS256"
