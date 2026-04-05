@@ -109,13 +109,32 @@ _redis_client = None
 def get_redis():
     global _redis_client
     if _redis_client is None:
-        _redis_client = redis.Redis(
-            host     = os.getenv("REDIS_HOST",     "localhost"),
-            port     = int(os.getenv("REDIS_PORT", "6379")),
-            password = os.getenv("REDIS_PASSWORD") or None,
-            db       = 0,
-            decode_responses = True,
-        )
+        redis_host     = os.getenv("REDIS_HOST",     "localhost")
+        redis_port     = int(os.getenv("REDIS_PORT", "6379"))
+        redis_password = os.getenv("REDIS_PASSWORD") or None
+
+        # Upstash requires SSL on port 6379
+        use_ssl = redis_host.endswith(".upstash.io")
+
+        if use_ssl:
+            import ssl
+            _redis_client = redis.Redis(
+                host             = redis_host,
+                port             = redis_port,
+                password         = redis_password,
+                db               = 0,
+                decode_responses = True,
+                ssl              = True,
+                ssl_cert_reqs    = ssl.CERT_NONE,
+            )
+        else:
+            _redis_client = redis.Redis(
+                host             = redis_host,
+                port             = redis_port,
+                password         = redis_password,
+                db               = 0,
+                decode_responses = True,
+            )
     return _redis_client
 
 
@@ -123,11 +142,12 @@ def get_redis():
 # JWT helpers
 # ─────────────────────────────────────────
 def create_token(user_id: int, username: str) -> str:
+    now = datetime.datetime.now(datetime.timezone.utc)
     payload = {
         "sub":      str(user_id),
         "username": username,
-        "iat":      datetime.datetime.utcnow(),
-        "exp":      datetime.datetime.utcnow() + datetime.timedelta(seconds=TOKEN_EXPIRY),
+        "iat":      now,
+        "exp":      now + datetime.timedelta(seconds=TOKEN_EXPIRY),
         "jti":      secrets.token_hex(16),
     }
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGO)
@@ -344,7 +364,7 @@ def update_profile():
     # Whitelist allowed fields
     allowed = {"age", "dob", "contact", "gender", "address", "bio", "occupation", "website"}
     update_data = {k: v for k, v in data.items() if k in allowed}
-    update_data["updated_at"] = datetime.datetime.utcnow().isoformat()
+    update_data["updated_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
 
     mdb = get_mongo_db()
     mdb.profiles.update_one(
@@ -353,7 +373,7 @@ def update_profile():
             "$set":         update_data,
             "$setOnInsert": {
                 "user_id":    user_id,
-                "created_at": datetime.datetime.utcnow().isoformat(),
+                "created_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
             }
         },
         upsert=True
