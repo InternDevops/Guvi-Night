@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — Night</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+
+  <div class="page-wrapper">
+    <div class="auth-card">
+
+      <!-- Brand -->
+      <div class="brand-mark">
+        <div class="brand-icon">⬡</div>
+        <span class="brand-name">Night</span>
+      </div>
+
+      <h1 class="auth-title">Create account</h1>
+      <p class="auth-subtitle">Join us — it only takes a minute.</p>
+
+      <!-- Alert Area -->
+      <div id="alertArea"></div>
+
+      <!-- Register Form -->
+      <form id="registerForm" novalidate autocomplete="off">
+
+        <!-- Name Row -->
+        <div class="row g-2 mb-0">
+          <div class="col-6">
+            <div class="form-group">
+              <label class="form-label" for="firstName">First name</label>
+              <div class="input-wrap">
+                <input type="text" class="form-control" id="firstName" name="first_name"
+                       placeholder="Jane" required />
+                <i class="bi bi-person input-icon"></i>
+              </div>
+              <div class="invalid-feedback">Required.</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label class="form-label" for="lastName">Last name</label>
+              <div class="input-wrap">
+                <input type="text" class="form-control" id="lastName" name="last_name"
+                       placeholder="Doe" required />
+                <i class="bi bi-person input-icon"></i>
+              </div>
+              <div class="invalid-feedback">Required.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label" for="email">Email address</label>
+          <div class="input-wrap">
+            <input type="email" class="form-control" id="email" name="email"
+                   placeholder="jane@example.com" required />
+            <i class="bi bi-envelope input-icon"></i>
+          </div>
+          <div class="invalid-feedback">Enter a valid email.</div>
+        </div>
+
+        <!-- Username -->
+        <div class="form-group">
+          <label class="form-label" for="username">Username</label>
+          <div class="input-wrap">
+            <input type="text" class="form-control" id="username" name="username"
+                   placeholder="jane_doe" required minlength="3" />
+            <i class="bi bi-at input-icon"></i>
+          </div>
+          <div class="invalid-feedback">Min 3 characters.</div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-wrap">
+            <input type="password" class="form-control" id="password" name="password"
+                   placeholder="Min. 8 characters" required minlength="8" />
+            <i class="bi bi-lock input-icon"></i>
+            <button type="button" class="toggle-password" aria-label="Toggle password">
+              <i class="bi bi-eye" id="toggleIcon"></i>
+            </button>
+          </div>
+          <div class="invalid-feedback">Min 8 characters.</div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label class="form-label" for="confirmPassword">Confirm password</label>
+          <div class="input-wrap">
+            <input type="password" class="form-control" id="confirmPassword"
+                   placeholder="Repeat password" required />
+            <i class="bi bi-lock-fill input-icon"></i>
+          </div>
+          <div class="invalid-feedback">Passwords do not match.</div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-primary-custom mt-2" id="submitBtn">
+          Create account
+        </button>
+
+      </form>
+
+      <div class="divider">or</div>
+      <p class="auth-link-text">Already have an account? <a href="login.html">Sign in</a></p>
+
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Register Logic -->
+  <script src="js/register.js"></script>
+</body>
+</html>

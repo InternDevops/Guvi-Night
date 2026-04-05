@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile — Nexus</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Profile CSS -->
+  <link rel="stylesheet" href="css/profile.css" />
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar-custom">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a href="#" class="navbar-brand-custom">⬡ Night</a>
+      <div class="d-flex align-items-center gap-3">
+        <div class="nav-user-chip">
+          <div class="nav-avatar" id="navAvatar">?</div>
+          <span class="nav-username" id="navUsername">Loading…</span>
+        </div>
+        <button class="btn-logout" id="logoutBtn">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <div class="profile-wrapper">
+    <div class="container" style="max-width:860px;">
+
+      <!-- Hero Card -->
+      <div class="hero-card">
+        <div class="profile-avatar-large" id="avatarLarge">?</div>
+        <div class="profile-hero-info">
+          <div class="profile-name-display" id="profileFullName">Loading…</div>
+          <div class="profile-email-display" id="profileEmail"></div>
+          <div class="profile-badge"><i class="bi bi-check-circle-fill"></i> Active account</div>
+        </div>
+        <div class="stats-row ms-auto">
+          <div class="stat-pill"><span>Username</span> <strong id="statUsername">—</strong></div>
+          <div class="stat-pill"><span>Member since</span> <strong id="statJoined">—</strong></div>
+        </div>
+      </div>
+
+      <!-- Alert Area -->
+      <div id="alertArea"></div>
+
+      <!-- Profile Details Form -->
+      <div class="section-card">
+        <div class="section-title">
+          <div class="section-title-icon"><i class="bi bi-person-vcard"></i></div>
+          Profile Details
+        </div>
+
+        <form id="profileForm" novalidate autocomplete="off">
+          <div class="row g-3">
+
+            <!-- Age -->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="form-label" for="age">Age</label>
+                <div class="input-wrap">
+                  <input type="number" class="form-control" id="age" name="age"
+                         placeholder="25" min="1" max="120" />
+                  <i class="bi bi-123 input-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="form-label" for="dob">Date of Birth</label>
+                <div class="input-wrap">
+                  <input type="date" class="form-control" id="dob" name="dob" />
+                  <i class="bi bi-calendar3 input-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="form-label" for="contact">Contact Number</label>
+                <div class="input-wrap">
+                  <input type="tel" class="form-control" id="contact" name="contact"
+                         placeholder="+91 9876543210" />
+                  <i class="bi bi-phone input-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="form-label" for="gender">Gender</label>
+                <div class="input-wrap">
+                  <select class="form-control" id="gender" name="gender">
+                    <option value="">Select…</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="prefer_not">Prefer not to say</option>
+                  </select>
+                  <i class="bi bi-people input-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="col-12">
+              <div class="form-group">
+                <label class="form-label" for="address">Address</label>
+                <div class="input-wrap">
+                  <input type="text" class="form-control" id="address" name="address"
+                         placeholder="123 Main St, City, Country" />
+                  <i class="bi bi-geo-alt input-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bio -->
+            <div class="col-12">
+              <div class="form-group">
+                <label class="form-label" for="bio">Bio</label>
+                <div class="input-wrap">
+                  <input type="text" class="form-control" id="bio" name="bio"
+                         placeholder="Tell us a little about yourself…" />
+                  <i class="bi bi-chat-quote input-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Occupation -->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="form-label" for="occupation">Occupation</label>
+                <div class="input-wrap">
+                  <input type="text" class="form-control" id="occupation" name="occupation"
+                         placeholder="Software Engineer" />
+                  <i class="bi bi-briefcase input-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Website -->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="form-label" for="website">Website</label>
+                <div class="input-wrap">
+                  <input type="url" class="form-control" id="website" name="website"
+                         placeholder="https://yoursite.com" />
+                  <i class="bi bi-globe2 input-icon"></i>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /row -->
+
+          <div class="d-flex justify-content-end mt-3">
+            <button type="submit" class="btn-save" id="saveBtn">
+              <i class="bi bi-cloud-upload me-1"></i> Save changes
+            </button>
+          </div>
+        </form>
+      </div><!-- /section-card -->
+
+    </div><!-- /container -->
+  </div><!-- /profile-wrapper -->
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Profile Logic -->
+  <script src="js/profile.js"></script>
+</body>
+</html>
