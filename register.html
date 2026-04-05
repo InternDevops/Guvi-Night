@@ -90,7 +90,8 @@
           <label class="form-label" for="password">Password</label>
           <div class="input-wrap">
             <input type="password" class="form-control" id="password" name="password"
-                   placeholder="Min. 8 characters" required minlength="8" />
+                   placeholder="Min. 8 characters" required minlength="8"
+                   autocomplete="new-password" />
             <i class="bi bi-lock input-icon"></i>
             <button type="button" class="toggle-password" aria-label="Toggle password">
               <i class="bi bi-eye" id="toggleIcon"></i>
@@ -104,7 +105,8 @@
           <label class="form-label" for="confirmPassword">Confirm password</label>
           <div class="input-wrap">
             <input type="password" class="form-control" id="confirmPassword"
-                   placeholder="Repeat password" required />
+                   placeholder="Repeat password" required
+                   autocomplete="new-password" />
             <i class="bi bi-lock-fill input-icon"></i>
           </div>
           <div class="invalid-feedback">Passwords do not match.</div>

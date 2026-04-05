@@ -1,3 +1,29 @@
+"""
+app.py  –  Nexus Backend
+========================
+Stack : Flask · MySQL (prepared statements) · MongoDB (profiles) · Redis (sessions)
+
+Install deps:
+    pip install flask flask-cors pymysql pymongo redis bcrypt PyJWT python-dotenv
+
+Environment variables (set in .env or shell):
+    MYSQL_HOST      = localhost
+    MYSQL_PORT      = 3306
+    MYSQL_USER      = root
+    MYSQL_PASSWORD  = secret
+    MYSQL_DB        = nexus_db
+
+    MONGO_URI       = mongodb://localhost:27017
+    MONGO_DB        = nexus_db
+
+    REDIS_HOST      = localhost
+    REDIS_PORT      = 6379
+    REDIS_PASSWORD  = (optional)
+
+    JWT_SECRET      = change_me_to_a_long_random_string
+    FLASK_ENV       = development
+"""
+
 import os
 import secrets
 import datetime
@@ -20,7 +46,16 @@ from pymongo import MongoClient
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={r"/api/*": {
+    "origins": [
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+        "https://delicate-swan-b0f87c.netlify.app",
+        "*"  # remove this line in production
+    ],
+    "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    "allow_headers": ["Content-Type", "Authorization"]
+}})
 
 JWT_SECRET    = os.getenv("JWT_SECRET", "change_me_supersecret_key_123")
 JWT_ALGO      = "HS256"
@@ -95,7 +130,7 @@ def verify_token(token: str) -> dict | None:
         r = get_redis()
         session_key = f"session:{payload['jti']}"
         if not r.exists(session_key):
-            return None          
+            return None          # session was destroyed (logout)
         return payload
     except jwt.ExpiredSignatureError:
         return None
