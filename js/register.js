@@ -6,7 +6,7 @@
 
 $(function () {
 
-  var API_BASE = 'http://localhost:5000';   // Python Flask backend
+  var API_BASE = 'https://guvi-night.onrender.com';   // Python Flask backend
 
   /* ── Helpers ── */
   function showAlert(type, icon, message) {

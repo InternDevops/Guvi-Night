@@ -6,7 +6,7 @@
 
 $(function () {
 
-  var API_BASE = 'http://localhost:5000';
+  var API_BASE = 'https://guvi-night.onrender.com';
 
   /* ── Redirect if already logged in ── */
   if (localStorage.getItem('nexus_session')) {

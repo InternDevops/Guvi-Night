@@ -8,7 +8,7 @@
 
 $(function () {
 
-  var API_BASE = 'http://localhost:5000';
+  var API_BASE = 'https://guvi-night.onrender.com';
 
   /* ── Session Guard ── */
   var sessionRaw = localStorage.getItem('nexus_session');
